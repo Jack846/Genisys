@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  *
  *  _____   _____   __   _   _   _____  __    __  _____
  * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
@@ -22,11 +22,12 @@
 namespace pocketmine\inventory;
 
 use pocketmine\Player;
+use pocketmine\inventory\transaction\DropItemTransaction;
 use pocketmine\item\Item;
 
 class SimpleTransactionQueue implements TransactionQueue{
 	
-	const DEFAULT_ALLOWED_RETRIES = 2;
+	const DEFAULT_ALLOWED_RETRIES = 20;
 	//const MAX_QUEUE_LENGTH = 3;
 	
 	/** @var Player[] */
@@ -167,7 +168,7 @@ class SimpleTransactionQueue implements TransactionQueue{
 			
 			$transaction = $this->transactionQueue->dequeue();
 			
-			if($transaction->getTransactionType() === Transaction::TYPE_DROP_ITEM){ //Dropped item
+			if($transaction instanceof DropItemTransaction){ //Dropped item
 				$droppedItem = $transaction->getTargetItem();
 				if($this->player->getCraftingInventory()->contains($droppedItem) or $this->player->isCreative()){
 					

@@ -97,6 +97,7 @@ use pocketmine\inventory\ShapedRecipe;
 use pocketmine\inventory\ShapelessRecipe;
 //use pocketmine\inventory\SimpleTransactionGroup;
 use pocketmine\inventory\Transaction;
+use pocketmine\inventory\transaction\DropItemTransaction;
 use pocketmine\item\enchantment\Enchantment;
 use pocketmine\item\FoodSource;
 use pocketmine\item\Item;
@@ -3242,7 +3243,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 					break;
 				}
 				
-				$this->getTransactionQueue()->addTransaction(new BaseTransaction(null, null, null, $packet->item, Transaction::TYPE_DROP_ITEM));
+				$this->getTransactionQueue()->addTransaction(new DropItemTransaction($packet->item));
 				break;
 			case ProtocolInfo::TEXT_PACKET:
 				if($this->spawned === false or !$this->isAlive()){
@@ -3299,7 +3300,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				//This should never be needed when these changes are stabilized
 				//Drop the contents of the floating inventory
 				foreach($this->getCraftingInventory()->getContents() as $item){
-					$this->getTransactionQueue()->addTransaction(new BaseTransaction(null, null, null, $item, Transaction::TYPE_DROP_ITEM));
+					$this->getTransactionQueue()->addTransaction(new DropItemTransaction($item));
 				}
 				break;
 
