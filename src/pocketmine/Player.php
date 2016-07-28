@@ -2491,7 +2491,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 					break;
 				}				
 				/**
-				 * Handle hotbar slot rempapping
+				 * Handle hotbar slot remapping
 				 * This is the only time and place when hotbar mapping should ever be changed.
 				 * Changing hotbar slot mapping at will has been deprecated because it causes far too many
 				 * issues with Windows 10 Edition Beta.
